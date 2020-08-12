@@ -1,0 +1,93 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<div class="container">
+    <mat-card-header style="margin-top: 25px; text-align:center; background-color: white; color: black;">
+        <mat-card-title>{{title}}</mat-card-title>
+    </mat-card-header>
+    <form class="form">
+        <div class="row" style="margin-top: 25px;">
+            <div class="col-md-3" style="margin: 15px;">
+                <mat-form-field class="form-control" cellspacing="0">
+                    <mat-label>Employee_ID</mat-label>
+                    <input matInput [(ngModel)]="empID" placeholder="Employee_ID">
+                </mat-form-field>
+                <!--<input type="text" class="form-control" [(ngModel)]="empID" placeholder="Employee_ID">-->
+            </div>
+            <div class="col-md-3" style="margin: 15px;">
+                <mat-form-field class="form-control">
+                    <input matInput [(ngModel)]="empName" placeholder="Name">
+                </mat-form-field>
+                <!--<input type="text" class="form-control" [(ngModel)]="empName" placeholder="Name">-->
+            </div>
+            <div class="col-md-3 " style="margin: 15px;">
+                <!--<mat-form-field class="form-control" appearance="fill">
+              <input matInput [matDatepicker]="picker" [(ngModel)]="dob" placeholder="Date of Birth">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>-->
+                <input type="date" class="form-control" [(ngModel)]="dob" placeholder="Date of Birth">
+            </div>
+            <div class="col-md-3" style="margin: 15px;">
+                <input type=" text" class="form-control" [(ngModel)]="deg" placeholder="Designation">
+            </div>
+            <div class="col-md-3 " style="margin: 15px;">
+                <input type="text" class="form-control" [(ngModel)]="address" placeholder="Address">
+            </div>
+            <div class="col-md-3" style="margin: 15px;">
+                <input type="date" class="form-control" [(ngModel)]="doj" placeholder="Date of Joining">
+            </div>
+            <div class="col-md-3 " style="margin: 15px;">
+                <button type="button" (click)="CreateRecord()" [disabled]="!empID || !empName || !dob || !deg || !address || !doj" class="btn btn-primary">+
+      Create Employee</button>
+            </div>
+        </div>
+    </form>
+    <hr>
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-md-3">
+            <div class="card" style="width: 30rem;" *ngFor="let item of Employees">
+                <div class="card-body" *ngIf="!item.isEdit; else elseBlock">
+                    <p class="card-text">Employee ID: {{item.Employee_ID}}</p>
+                    <p class="card-text">Name: {{item.Name}} </p>
+                    <p class="card-text">Date of Birth: {{item.DOB}} </p>
+                    <p class="card-text">Designation: {{item.Designation}}</p>
+                    <p class="card-text">Address: {{item.Address}}</p>
+                    <p class="card-text">Date of Joining: {{item.DOJ}} </p>
+                    <a href="#" class="card-link" (click)="EditRecord(item)"><button style="margin:5px;">Edit</button></a>
+                    <a href="#" class="card-link" (click)="RemoveRecord(item.id)"><button style="margin:5px;">Delete</button></a>
+                </div>
+                <ng-template #elseBlock>
+                    <div class="card-body">
+                        <h5 class="card-title">Edit</h5>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" [(ngModel)]="item.EditName" placeholder="Edit Name">
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" [(ngModel)]="item.EditDOB" placeholder="Edit Date of Birth">
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" [(ngModel)]="item.EditDesignation" placeholder="Edit Designation">
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" [(ngModel)]="item.EditAddress" placeholder="Edit Address">
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" [(ngModel)]="item.EditDOJ" placeholder="Edit Date of Joining">
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="#" class="card-link" (click)="item.isEdit = false"><button style="margin:5px;">Cancel</button></a>
+                        <a href="#" class="card-link" (click)="UpdateRecord(item)"><button style="margin:5px;">Update</button></a>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+</div>
+
+html { height: 100%; } body { margin: 0; padding: 0; font-family: sans-serif; background: linear-gradient(#141e30, #243b55); } .form-control { width: 20%; }
